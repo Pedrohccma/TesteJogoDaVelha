@@ -2,6 +2,7 @@ package com.pedrohc.testejogodavelhaletras
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val board = Array(3) { IntArray(3) }
 
     private var firstUser = true
+    private var endGame = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         textUser = findViewById(R.id.text_user)
 
+
+
         configureBox(centerBox)
         configureBox(centerRightBox)
         configureBox(centerLeftBox)
@@ -53,11 +57,27 @@ class MainActivity : AppCompatActivity() {
         configureBox(bottomCenterBox)
         configureBox(bottomRightBox)
         configureBox(bottomLeftBox)
+
+        val newGame: Button = findViewById(R.id.bttn_new_game)
+
+        newGame.setOnClickListener{
+            newGame(centerBox)
+            newGame(centerRightBox)
+            newGame(centerLeftBox)
+
+            newGame(upperCenterBox)
+            newGame(upperRightBox)
+            newGame(upperLeftBox)
+
+            newGame(bottomCenterBox)
+            newGame(bottomRightBox)
+            newGame(bottomLeftBox)
+        }
     }
 
     private fun configureBox(box: ImageView) {
         box.setOnClickListener {
-            if (box.tag == null) {
+            if (box.tag == null && endGame != true) {
                 if (firstUser) {
                     box.setImageResource(R.drawable.jogo_velha_x)
                     box.tag = 1
@@ -65,17 +85,20 @@ class MainActivity : AppCompatActivity() {
                     firstUser = false
                     gameRecord(box, 1)
                     if (userWin(1)) {
+                        endGame = true
                         textUser.text = buildString {
                             append("Usuário 1 Venceu")
                         }
                     }
-                } else {
+                }
+                else {
                     box.setImageResource(R.drawable.jogo_velha_circulo)
                     box.tag = 2
                     textUser.text = buildString { append("Usuário 2") }
                     firstUser = true
                     gameRecord(box, 2)
                     if (userWin(2)) {
+                        endGame = true
                         textUser.text = buildString {
                             append("Usuário 2 Venceu")
                         }
@@ -119,5 +142,22 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
+    private fun newGame(box: ImageView){
+        box.setImageDrawable(null)
+        box.tag = null
+
+        for (i in 0 until 3){
+            for(j in 0 until 3){
+                board[i][j] = 0
+            }
+        }
+
+        firstUser = true
+        endGame = false
+
+        textUser.text = buildString {
+            append("Usuário 1")
+        }
+    }
 
 }
