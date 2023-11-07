@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         textUser = findViewById(R.id.text_user)
 
-
-
         configureBox(centerBox)
         configureBox(centerRightBox)
         configureBox(centerLeftBox)
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         configureBox(bottomRightBox)
         configureBox(bottomLeftBox)
 
-        val newGame: Button = findViewById(R.id.bttn_new_game)
+        val newGame: Button = findViewById(R.id.bttn_new_Game)
 
         newGame.setOnClickListener{
             newGame(centerBox)

@@ -107,7 +107,7 @@
         android:layout_marginTop="54dp" />
 
     <Button
-        android:id="@+id/bttn_new_game"
+        android:id="@+id/bttn_new_Game"
         android:text="Novo Jogo"
         android:textStyle="bold"
         android:textSize="35dp"
